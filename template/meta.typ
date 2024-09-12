@@ -1,4 +1,4 @@
-#import "@preview/minerva-report-fcfm:0.2.1" as minerva
+#import "@preview/minerva-report-fcfm:0.3.0" as minerva
 
 #let titulo = "Informe Minerva"
 #let subtitulo = "Typst"
@@ -9,7 +9,7 @@
 
 #let fechas = ( // diccionario de fechas, si la portada no soporta
   realización: "14 de Abril de 2024",
-  entrega: minerva.formato-fecha(datetime.today())
+  entrega: minerva.util.formato-fecha(datetime.today())
 )
 #let lugar = "Santiago, Chile"
 

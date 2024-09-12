@@ -1,6 +1,9 @@
-# v0.2.1
+# v0.3.0
 - Arreglado el número de versión de `meta.typ`
 - Arreglado el parámetro `showrules` del template no mostraba el documento cuando se configuraba como `false`
+- Agregado comando `help` para obtener ayuda sobre las distintas funciones.
+- Mejorada la documentación.
+- Creado un PDF de documentación, con notas extras sobre como extender el template.
 
 # v0.2.0
 - Agregada metadata al PDF exportado.
