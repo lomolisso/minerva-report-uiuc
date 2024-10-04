@@ -7,17 +7,17 @@
 #let departamento = minerva.departamentos.dcc
 #let curso = "CC4034 - Composición de Documentos"
 
-#let fechas = ( // diccionario de fechas, si la portada no soporta
+#let fechas = ( // diccionario de fechas
   realización: "14 de Abril de 2024",
   entrega: minerva.util.formato-fecha(datetime.today())
 )
 #let lugar = "Santiago, Chile"
 
 #let autores = ("Integrante1", "Integrante2")
-#let equipo-docente = ( // diccionario con distintos valores soportados:
-  Profesores: ("Profesor1", "Profesor2"), // arreglo de strings
-  Auxiliar: "ÚnicoAuxiliar", // un único miembro como string
-  Ayudante: [ // bloque de contenido
+#let equipo-docente = (
+  Profesores: ("Profesor1", "Profesor2"),
+  Auxiliar: "ÚnicoAuxiliar",
+  Ayudante: [
     Ayudante1 \
     Ayudante $1+1$
   ],

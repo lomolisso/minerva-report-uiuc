@@ -1,7 +1,7 @@
 #import "@preview/minerva-report-fcfm:0.3.0" as minerva
 #import "meta.typ" as meta
 
-#show: minerva.report.with(
+#show: minerva.informe.with(
   meta,
   showrules: true,
 )

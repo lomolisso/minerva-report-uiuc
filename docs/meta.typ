@@ -1,5 +1,5 @@
 #import "../meta.typ": *
-#import "@preview/minerva-report-fcfm:0.3.0" as minerva
+#import "../minerva-report-fcfm.typ" as minerva
 
 #let titulo = "Informe Minerva"
 #let subtitulo = "Informes rápidos y fáciles."

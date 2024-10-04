@@ -1,6 +1,6 @@
 /// Esta función permite obtener ayuda sobre cualquier función
 /// del template. Para saber qué funciones y variables define
-/// el template simplemente deja que el autocompletado te guie,
+/// el template simplemente deja que el autocompletado te guíe,
 /// luego puedes llamar esta función para obtener más ayuda.
 ///
 /// - nombre (str): Puede ser el nombre de una función o
@@ -18,6 +18,8 @@
     package-name: package-name,
     style: tidy-styles()
   )
+
+  show: help-show
   help(nombre)
 }
 
@@ -88,10 +90,10 @@
 /// - margenes-portada (dictionary): Márgenes de la portada.
 /// - margenes (dictionary): Márgenes del documento.
 /// - showrules (bool): Si es `true` se aplicarán showrules irreversibles.
-///   Si se requiere más personalización se recomiendo desactivar.
+///   Si se requiere más personalización recomiendo desactivar.
 /// - doc (content): Documento a aplicar el template.
 /// -> content
-#let report(
+#let informe(
   meta,
   portada: front.portada1,
   header: header.header1,

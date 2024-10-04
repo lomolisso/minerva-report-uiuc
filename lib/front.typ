@@ -118,10 +118,12 @@
 /// Portada que contiene en una página el resumen y el outline.
 ///
 /// - meta (dictionary, module): Contenidos del archivo **meta.typ**.
+/// - espaciado (length): Espaciado entre los elementos principales de la portada.
 /// - indice (boolean): Decide si incluir un índice.
 /// -> content
 #let portada-simple(
   meta,
+  espaciado: 4cm,
   indice: false
 ) = {
   let meta = dictionary(meta)
@@ -134,7 +136,8 @@
   return base(margin: (x: 4cm), align(center + horizon)[
     #set heading(numbering: none, outlined: false)
     #set text(size: 13pt)
-    #stack(dir: ttb, spacing: 5cm, 
+
+    #let page-content(main-spacing) = stack(dir: ttb, spacing: main-spacing,
       stack(dir: ttb, spacing: 2cm,
         [
           #text(size: 20pt)[*#meta.titulo*]
@@ -150,18 +153,30 @@
           }
         ]
       ),
-      if meta.at("resumen", default: none) != none [
-        = Resumen
-        #meta.resumen
-      ] else [],
+      ..if meta.at("resumen", default: none) != none {
+        ([
+          = Resumen
+          #meta.resumen],)
+      } else {
+        ()
+      },
       outline(depth: 2)
     )
+    
+    #layout(size => {
+      let desired = measure(page-content(espaciado))
+      if desired.height > size.height {
+        page-content(1fr)
+      } else {
+        page-content(espaciado)
+      }
+    })
   ])
 }
 
 /// Esta función permite obtener ayuda sobre cualquier función
 /// del template. Para saber qué funciones y variables define
-/// el template simplemente deja que el autocompletado te guie,
+/// el template simplemente deja que el autocompletado te guíe,
 /// luego puedes llamar esta función para obtener más ayuda.
 ///
 /// - nombre (string): Puede ser el nombre de una función o

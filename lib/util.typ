@@ -19,7 +19,7 @@
 
 /// Esta función permite obtener ayuda sobre cualquier función
 /// del template. Para saber qué funciones y variables define
-/// el template simplemente deja que el autocompletado te guie,
+/// el template simplemente deja que el autocompletado te guíe,
 /// luego puedes llamar esta función para obtener más ayuda.
 ///
 /// - nombre (string): Puede ser el nombre de una función o

@@ -27,7 +27,6 @@
     dict.insert(name,
       tidy.parse-module(
         file,
-        name: name,
         require-all-parameters: true
       )
     )
@@ -38,22 +37,22 @@
 #let show-main = {
   set heading(numbering: none)
   show heading.where(level: 2): set heading(numbering: "1.")
-  tidy.show-module(main, show-outline: false)
+  tidy.show-module(main, show-outline: false, style: package-meta.tidy-styles())
 }
 
 #let show-libs = {
-  let arr = ()
-  for (name, lib) in libs {
-    arr.push[
-      #set heading(numbering: none)
-      #show heading.where(level: 2): set heading(numbering: "1.")
-      
-      #tidy.show-module(
-        lib,
-        show-outline: false,
-        style: package-meta.tidy-styles()
-      )
-    ]
-  }
-  arr
+  libs.pairs().map((pair) => [
+    #let name = pair.first()
+    #let lib = pair.last()
+    #set heading(numbering: none)
+    #show heading.where(level: 2): set heading(numbering: "1.")
+    
+    #[== #name] #label(name)
+    
+    #tidy.show-module(
+      lib,
+      show-outline: false,
+      style: package-meta.tidy-styles() 
+    )
+  ])
 }

@@ -40,21 +40,37 @@
   return local
 }
 
-#let tidy-styles() = { // workaound to inject "minerva" to the example scope
-  import tidy.styles: default
+#let tidy-styles() = { // workaround to inject "minerva" to the example scope
+  import tidy.styles: default, help
   let mine = dictionary(default)
   mine.insert("show-example", (..args) => {
     let outer-scope = args.named().at("scope", default: (:))
-    return default.show-example(..args, scope: outer-scope + global-scope())
+    return help.show-example(..args, scope: outer-scope + global-scope())
   })
   return mine
 }
 
+#let help-show(doc) = {
+  show heading: it => {
+    show "Parameters": "Argumentos"
+    show "Example": "Ejemplo"
+    it
+  }
+  show regex("^Default"): "Por defecto"
+
+  doc
+}
+
 #let help-leaf(module-name) = {
   let file-name = "lib/" + module-name + ".typ"
-  return tidy.generate-help(
+  let base-func = tidy.generate-help(
     namespace: local-namespace(file-name),
     package-name: package-name + module-name,
     style: tidy-styles()
   )
+
+  return (..args) => {
+    show: help-show
+    base-func(..args)
+  }
 }
