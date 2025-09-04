@@ -30,7 +30,7 @@
 ) = {
   let members = (:)
   if type(meta.authors) == "string" {
-    members.insert("Member", meta.authors)
+    members.insert("Author", meta.authors)
   } else if meta.authors.len() > 0 {
     members.insert(
       if meta.authors.len() == 1 {
