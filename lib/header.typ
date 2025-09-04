@@ -44,7 +44,7 @@
         }
       }
 
-      if heading-found != none and heading-found.numbering != none {
+      if heading-found != none {
         heading-found.body
       }
     }
