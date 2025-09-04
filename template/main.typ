@@ -13,16 +13,14 @@
 #outline()
 
 = Writing Simple Paragraphs
-Typst is very similar to Markdown and you can use special character sequences to style
-text. For example, you can use *bold* text, _italic_ text, and
+Typst is very similar to Markdown and you can use special character sequences to style text. For example, you can use *bold* text, _italic_ text, and
 `monospace` text like `typst watch main.typ`.
 
 A new paragraph is created simply by leaving a blank line.
 
 == The equals symbol `=` is used to create a heading
 In LaTeX you use `\` to use commands, in Typst we use `#`. There are many
-utilities like emoji #emoji.face.happy, calculation functions #calc.binom(10, 4), and
-time conversions #duration(days: 5).minutes()
+utilities like emoji #emoji.face.happy, calculation functions #calc.binom(10, 4), and time conversions #duration(days: 5).minutes()
 
 = Elements
 Documents in Typst are formed by combining content. Content is obtained by calling

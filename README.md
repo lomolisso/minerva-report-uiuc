@@ -9,7 +9,7 @@ Since this template is not yet published to the Typst universe, you'll need to c
 
 1. Clone this repository:
 ```sh
-git clone https://github.com/Dav1com/minerva-report-uiuc.git
+git clone https://github.com/lomolisso/minerva-report-uiuc.git
 ```
 
 2. Copy the `template/` directory to start your project:

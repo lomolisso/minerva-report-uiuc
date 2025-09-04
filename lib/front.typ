@@ -45,10 +45,10 @@
 
   let header = header.base[
     #grid(columns: (auto, 1fr), rows: auto)[
-      #set align(left + bottom)
+      #set align(left + horizon)
       #for name in meta.department.name [#name \ ]
     ][
-      #set align(right + bottom)
+      #set align(right + horizon)
       #if meta.department.logo != none {
         let logo-raw = if type(meta.department.logo) == function {
           meta.department.at("logo")()
@@ -56,10 +56,10 @@
           meta.department.logo
         }
 
-        box(height: 50pt)[#logo-raw]
+        box(height: 50pt, move(dy: 0pt, logo-raw))
       }
     ]
-    #v(8pt)
+    #v(-2pt)
     #line(length: 100%, stroke: 0.4pt)
   ]
 
