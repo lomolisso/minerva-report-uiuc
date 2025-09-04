@@ -1,24 +1,24 @@
-#import "@preview/minerva-report-fcfm:0.3.0" as minerva
+#import "../minerva-report-uiuc.typ" as minerva
 
-#let titulo = "Informe Minerva"
-#let subtitulo = "Typst"
-#let tema = "Aprendiendo a usar el template"
+#let title = "Minerva Report"
+#let subtitle = "Typst Template"
+#let topic = "Learning to use the template"
 
-#let departamento = minerva.departamentos.dcc
-#let curso = "CC4034 - Composición de Documentos"
+#let department = minerva.departments.grainger
+#let course = "CS 101 - Introduction to Computer Science"
 
-#let fechas = ( // diccionario de fechas
-  realización: "14 de Abril de 2024",
-  entrega: minerva.util.formato-fecha(datetime.today())
+#let dates = ( // dates dictionary
+  completion: "April 14, 2024",
+  submission: minerva.util.format-date(datetime.today())
 )
-#let lugar = "Santiago, Chile"
+#let location = "Urbana, Illinois"
 
-#let autores = ("Integrante1", "Integrante2")
-#let equipo-docente = (
-  Profesores: ("Profesor1", "Profesor2"),
-  Auxiliar: "ÚnicoAuxiliar",
-  Ayudante: [
-    Ayudante1 \
-    Ayudante $1+1$
+#let authors = ("Student1", "Student2")
+#let teaching-team = (
+  Professors: ("Professor1", "Professor2"),
+  TA: "PrimaryTA",
+  Assistant: [
+    Assistant1 \
+    Assistant $1+1$
   ],
 )

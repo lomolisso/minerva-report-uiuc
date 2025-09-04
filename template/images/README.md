@@ -1,2 +1,1 @@
-Estructura de archivos de ejemplo, esta carpeta estaría destinada a 
-guardar las imágenes usadas en el documento.
+This folder should hold the images used in the document.

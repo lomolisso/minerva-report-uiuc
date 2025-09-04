@@ -1,23 +1,23 @@
 /** meta.typ
  *
- * Archivo para constantes y estilos usados en documentación,
- * y otros elementos sobre el package en sí mismo.
+ * File for constants and styles used in documentation,
+ * and other elements about the package itself.
  */
-#import "@preview/tidy:0.3.0" as tidy
+#import "@preview/tidy:0.4.1" as tidy
 
 #let minerva() = {
-  import "minerva-report-fcfm.typ" as minerva
+  import "minerva-report-uiuc.typ" as minerva
   return minerva
 }
 
-#let package-name = "minerva-report-fcfm"
+#let package-name = "minerva-report-uiuc"
 #let package-version = "0.3.0"
 #let package-version-arr = (0,3,0)
 
 #let global-namespace = (
-  "minerva": read.with("minerva-report-fcfm.typ"),
-  "minerva.departamentos": read.with("lib/departamentos.typ"),
-  "departamentos": read.with("lib/departamentos.typ"),
+  "minerva": read.with("minerva-report-uiuc.typ"),
+  "minerva.departments": read.with("lib/departments.typ"),
+  "departments": read.with("lib/departments.typ"),
   "minerva.footer": read.with("lib/footer.typ"),
   "footer": read.with("lib/footer.typ"),
   "minerva.front": read.with("lib/front.typ"),
@@ -52,11 +52,11 @@
 
 #let help-show(doc) = {
   show heading: it => {
-    show "Parameters": "Argumentos"
-    show "Example": "Ejemplo"
+    show "Parameters": "Parameters"
+    show "Example": "Example"
     it
   }
-  show regex("^Default"): "Por defecto"
+  show regex("^Default"): "Default"
 
   doc
 }

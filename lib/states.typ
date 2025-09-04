@@ -1,23 +1,21 @@
-/// Este es un `state` que es usado por el template para
-/// saber si el documento siendo compilado es `main.typ`
-/// o un documento secundario.
-/// 
+/// This is a `state` that is used by the template to
+/// know if the document being compiled is `main.typ`
+/// or a secondary document.
+///
 /// -> state
 #let is-main = state("minerva.is-main", false)
 
-/// Esta función permite obtener ayuda sobre cualquier función
-/// del template. Para saber qué funciones y variables define
-/// el template simplemente deja que el autocompletado te guíe,
-/// luego puedes llamar esta función para obtener más ayuda.
+/// This function allows you to get help on any template function.
+/// To see what functions and variables the template defines,
+/// let autocomplete guide you, then call this function for more help.
 ///
-/// - nombre (string): Puede ser el nombre de una función o
-///                    variable, entonces la función entrega
-///                    ayuda general sobre esta. Si se entrega
-///                    algo de la forma `"help(nombre)"` entonces
-///                    entrega ayuda específica sobre el argumento
-///                    `nombre`.
+/// - name (string): Can be the name of a function or
+///                    variable, in which case the function provides
+///                    general help about it. If something of the form
+///                    `"help(name)"` is provided, it gives specific
+///                    help about the `name` argument.
 /// -> content
-#let help(nombre) = {
+#let help(name) = {
   import "../meta.typ": *
-  return help-leaf("states")(nombre)
+  return help-leaf("states")(name)
 }

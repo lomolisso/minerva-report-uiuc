@@ -1,19 +1,19 @@
 #import "../meta.typ" as package-meta
-#import "@preview/tidy:0.3.0" as tidy
+#import "@preview/tidy:0.4.1" as tidy
 #import "tidy-things.typ" as tidy-things
 #import "meta.typ" as meta
-#import "../minerva-report-fcfm.typ" as minerva
+#import "../minerva-report-uiuc.typ" as minerva
 
 #set document(
-  title: "Documentación de Minerva Report",
+  title: "Minerva Report Documentation",
   author: "David Ibáñez <@Dav1com>",
-  keywords: ("article", "fcfm", "report"),
+  keywords: ("article", "uiuc", "report"),
 )
 
 #set text(
-  font: "Linux Libertine",
-  lang: "es",
-  region: "cl",
+  font: "Libertinus Serif",
+  lang: "en",
+  region: "us",
 )
 
 #show link: underline
@@ -21,11 +21,12 @@
 
 #show heading.where(level: 1): smallcaps
 
-#show: minerva.informe.with(
+#show: minerva.report.with(
   meta,
-  portada: minerva.front.portada-simple,
-  header: minerva.header.sin-header,
-  footer: minerva.footer.footer-numero,
+  title-page: minerva.front.title-page-simple,
+  header: minerva.header.no-header,
+  footer: minerva.footer.footer-number,
+  margins: (top: 3.5cm),
 )
 
 #show heading.where(level: 1): it => {
@@ -33,21 +34,21 @@
   it
 }
 
-= Introducción
-El objetivo del template es permitir a estudiantes de la Facultad de Ciencias Físicas y Matemáticas escribir informes de forma sencilla, y rápida. Reduciendo mucho la cantidad de archivos y código inecesario que solo se ven como ruido para el usuario final.
+= Introduction
+The goal of this template is to allow students at the University of Illinois at Urbana-Champaign to write reports in a simple and fast way. It greatly reduces the amount of unnecessary files and code that only appear as noise to the end user.
 
-Además debe presentarse con un aspecto familiar para quienes llevan años utilizando templates en otros sistemas de documentos.
+Additionally, it should present a familiar appearance for those who have been using templates in other document systems for years.
 
-= Configuración
-La configuración se realiza de 2 formas, primero, los valores generales sobre el informe, como curso, título y autores van en el archivo *meta.typ*, mientras que el cómo se quiere que se vea el documento se configura en la función #link(label("minervainforme()"))[`informe`].
+= Configuration
+Configuration is done in 2 ways: first, general values about the report, such as course, title, and authors go in the *meta.typ* file, while how the document should look is configured in the `report` function.
 
 == meta.typ
 #let show-type = tidy.styles.default.show-type.with(style-args: tidy.styles.default)
-La mayoría de valores permiten utilizar un #show-type("str"), un #show-type("array") de strings o #show-type("content"). La única excepción es autores, ya que se usa para configurar el autor del PDF!
+Most values allow using a #show-type("str"), an #show-type("array") of strings, or #show-type("content"). The only exception is authors, as it is used to configure the PDF author!
 
-También se puede configurar la intitución del informe, esto se hace en `departamento`, los departamentos incluidos y cómo crear el tuyo propio está en #link(label("departamentos"))[`departamentos`].
+You can also configure the institution of the report, this is done in `department`. The included departments and how to create your own is in #link(label("departments"))[`departments`].
 
-= Documentación
+= Documentation
 
 #show: package-meta.help-show
 #show heading.where(numbering: none): it => [

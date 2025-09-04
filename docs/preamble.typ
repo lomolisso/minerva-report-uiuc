@@ -1,9 +1,9 @@
-#import "../minerva-report-fcfm.typ" as minerva
+#import "../minerva-report-uiuc.typ" as minerva
 
-#let main-file = read("../minerva-report-fcfm.typ")
+#let main-file = read("../minerva-report-uiuc.typ")
 
 #let lib-files = {
-  let names = ("departamentos", "footer", "front", "header", "rules", "states", "util")
+  let names = ("departments", "footer", "front", "header", "rules", "states", "util")
 
   let dict = (:)
 

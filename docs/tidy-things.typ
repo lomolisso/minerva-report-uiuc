@@ -1,5 +1,5 @@
 #import "preamble.typ": *
-#import "@preview/tidy:0.3.0" as tidy
+#import "@preview/tidy:0.4.1" as tidy
 #import "../meta.typ" as package-meta
 
 #let _main = tidy.parse-module(
@@ -9,16 +9,16 @@
 )
 
 #let main = {
-  let main_functions = _main
-  main_functions.variables = main_functions.variables.filter(it => it.type != "module")
-  main_functions
+  let main-functions = _main
+  main-functions.variables = main-functions.variables.filter(it => it.type != "module")
+  main-functions
 }
 
-#let main_submodules = {
-  let main_modules = _main
-  main_modules.functions = ()
-  main_modules.variables = main_modules.variables.filter(it => it.type == "module")
-  main_modules
+#let main-submodules = {
+  let main-modules = _main
+  main-modules.functions = ()
+  main-modules.variables = main-modules.variables.filter(it => it.type == "module")
+  main-modules
 }
 
 #let libs = {

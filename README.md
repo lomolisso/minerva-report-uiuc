@@ -1,36 +1,46 @@
-# Minerva Report FCFM
+# Minerva Report UIUC
 
-Template para hacer tareas, informes y trabajos, para estudiantes y académicos de la Facultad de Ciencias Físicas y Matemáticas de la Universidad de Chile que han usado templates similares para LaTeX.
+A professional template for assignments, reports, and academic papers designed for students and faculty at the University of Illinois at Urbana-Champaign. Perfect for those familiar with LaTeX templates who want a modern, streamlined solution.
 
-## Guía Rápida
+## Quick Start
 
-### [Webapp](https://typst.app)
-Si utilizas la webapp de Typst puedes presionar "Start from template" y buscar "minerva-report-fcfm" para crear un nuevo proyecto con este template.
+### Development Setup
+Since this template is not yet published to the Typst universe, you'll need to clone or download this repository to use it locally.
 
-### Typst CLI
-Teniendo el CLI con la versión 0.11.1 o mayor, puedes realizar:
+1. Clone this repository:
 ```sh
-typst init @preview/minerva-report-fcfm:0.3.0
+git clone https://github.com/Dav1com/minerva-report-uiuc.git
 ```
-Esto va a descargar el template en la cache de typst y luego va a iniciar el proyecto en la carpeta actual.
 
-## Configuración
-La mayoría de la configuración se realiza a través del archivo `meta.typ`,
-allí podrás elegir un título, indicar los autores, el equipo docente, entre otras configuraciones.
+2. Copy the `template/` directory to start your project:
+```sh
+cp -r minerva-report-uiuc/template my-project
+cd my-project
+```
 
-El campo `autores` solo puede ser `string` o un `array` de strings.
+### Web App
+If you're using the Typst web app, you can upload the template files from the `template/` directory to create a new project.
 
-La configuración `departamento` puede ser personalizada a cualquier organización pasandole un diccionario de esta forma:
+### Typst CLI (Local Development)
+For local development, you can work directly with the template files. The template uses relative imports that work when the files are in the same directory structure.
+
+## Configuration
+Most configuration is done through the `meta.typ` file,
+where you can set the title, authors, course information, and other document details.
+
+The `authors` field accepts either a `string` or an `array` of strings.
+
+The `department` configuration can be customized for any organization by passing a dictionary like this:
 ```typ
-#let departamento = (
-  nombre: (
-    "Universidad Técnica Federico Santa María",
-    "Factultad"
+#let department = (
+  name: (
+    "University of Illinois at Urbana-Champaign",
+    "Department of Computer Science"
   )
 )
 ```
 
-Las demás configuraciones pueden ser un `content` arbitrario, o un `string`.
+Other configurations can be arbitrary `content` or `string` values.
 
-## Guía Extensiva
-Más información la puedes encontrar en la guía 
+## Comprehensive Guide
+For more detailed information, please refer to the comprehensive guide available in the repository. 

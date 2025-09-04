@@ -2,13 +2,13 @@
 #import "footer.typ" as footer
 #import "states.typ" as states
 
-/// Crea un página y settea variables de estado requeridas
-/// por otras funciones del template. Si buscas extender
-/// el template con tu propia portada, es recomendado
-/// pasarlo por esta función.
+/// Creates a page and sets state variables required
+/// by other template functions. If you want to extend
+/// the template with your own title page, it is recommended
+/// to pass it through this function.
 ///
-/// - it (content): Contenido de la portada.
-/// - ..args (arguments): Argumentos a pasar a la función `page`
+/// - it (content): Title page content.
+/// - ..args (arguments): Arguments to pass to the `page` function
 /// -> content
 #let base(it, ..args) = {
   return page(..args, {
@@ -18,45 +18,45 @@
   })
 }
 
-/// Diseño de portada básico, perfecto para informes y tareas.
-/// 
-/// - meta (dictionary): Contenidos del archivo **meta.typ**
-/// - titulo-centrado (bool): Si es que el título debería ir centrado respecto
-///   a la página. Por defecto `false`.
+/// Basic title page design, perfect for reports and assignments.
+///
+/// - meta (dictionary): Contents of the **meta.typ** file
+/// - title-centered (bool): Whether the title should be centered relative
+///   to the page. Default is `false`.
 /// -> content
-#let portada1(
+#let title-page1(
   meta,
-  titulo-centrado: false,
+  title-centered: false,
 ) = {
-  let miembros = (:)
-  if type(meta.autores) == "string" {
-    miembros.insert("Integrante", meta.autores)
-  } else if meta.autores.len() > 0 {
-    miembros.insert(
-      if meta.autores.len() == 1 {
-        "Integrante"
+  let members = (:)
+  if type(meta.authors) == "string" {
+    members.insert("Member", meta.authors)
+  } else if meta.authors.len() > 0 {
+    members.insert(
+      if meta.authors.len() == 1 {
+        "Member"
       } else {
-        "Integrantes"
+        "Members"
       },
-      meta.autores
+      meta.authors
     )
   }
-  miembros = miembros + meta.equipo-docente
+  members = members + meta.teaching-team
 
   let header = header.base[
     #grid(columns: (auto, 1fr), rows: auto)[
       #set align(left + bottom)
-      #for nombre in meta.departamento.nombre [#nombre \ ]
+      #for name in meta.department.name [#name \ ]
     ][
       #set align(right + bottom)
-      #if meta.departamento.logo != none {
-        let logo_raw = if type(meta.departamento.logo) == function {
-          meta.departamento.at("logo")()
+      #if meta.department.logo != none {
+        let logo-raw = if type(meta.department.logo) == function {
+          meta.department.at("logo")()
         } else {
-          meta.depatamento.logo
+          meta.department.logo
         }
 
-        image.decode(logo_raw, height: 50pt)
+        box(height: 50pt)[#logo-raw]
       }
     ]
     #v(8pt)
@@ -64,43 +64,43 @@
   ]
 
   let member-table-args = ()
-  for (categoria, nombres) in miembros {
-    member-table-args.push[#categoria:]
+  for (category, names) in members {
+    member-table-args.push[#category:]
     member-table-args.push[
-      #if type(nombres) == array {
-        for nombre in nombres [#nombre \ ]
+      #if type(names) == array {
+        for name in names [#name \ ]
       } else {
-        nombres
+        names
       }
     ]
   }
 
-  let titulo = align(center, {
+  let title = align(center, {
       set text(size: 25pt)
-      if meta.titulo != none {
-        meta.titulo
+      if meta.title != none {
+        meta.title
         linebreak()
       }
-      if meta.subtitulo != none {
-        meta.subtitulo
+      if meta.subtitle != none {
+        meta.subtitle
         linebreak()
       }
-      if meta.tema != none {
-        meta.tema
+      if meta.topic != none {
+        meta.topic
       }
     })
   
   let member-table = grid(columns: (1fr, auto), rows: auto)[][
       #grid(columns: 2, rows: auto, row-gutter: 10pt, column-gutter: 5pt, ..member-table-args)
   
-      #for (nombre, fecha) in meta.fechas [
-        Fecha de #nombre: #fecha \
+      #for (name, date) in meta.dates [
+        Date of #name: #date \
       ]
-      #meta.lugar
+      #meta.location
     ];
   
   let member-table-wrapper = {
-    if titulo-centrado {
+    if title-centered {
       (it) => place(bottom+right, align(top+left, it))
     } else {
       (it) => it
@@ -109,28 +109,28 @@
 
   return base(header: header)[
     #v(1fr)
-    #titulo
+    #title
     #v(1fr)
     #member-table-wrapper(grid(columns: (1fr, auto), rows: auto, [], member-table))
   ]
 }
 
-/// Portada que contiene en una página el resumen y el outline.
+/// Title page that contains the abstract and outline on one page.
 ///
-/// - meta (dictionary, module): Contenidos del archivo **meta.typ**.
-/// - espaciado (length): Espaciado entre los elementos principales de la portada.
-/// - indice (boolean): Decide si incluir un índice.
+/// - meta (dictionary, module): Contents of the **meta.typ** file.
+/// - spacing (length): Spacing between the main elements of the title page.
+/// - include-outline (boolean): Whether to include an outline.
 /// -> content
-#let portada-simple(
+#let title-page-simple(
   meta,
-  espaciado: 4cm,
-  indice: false
+  spacing: 4cm,
+  include-outline: false
 ) = {
   let meta = dictionary(meta)
-  let autores = if type(meta.autores) == array {
-    meta.autores.join(", ")
+  let authors = if type(meta.authors) == array {
+    meta.authors.join(", ")
   } else {
-    meta.autores
+    meta.authors
   }
 
   return base(margin: (x: 4cm), align(center + horizon)[
@@ -140,23 +140,23 @@
     #let page-content(main-spacing) = stack(dir: ttb, spacing: main-spacing,
       stack(dir: ttb, spacing: 2cm,
         [
-          #text(size: 20pt)[*#meta.titulo*]
+          #text(size: 20pt)[*#meta.title*]
 
           #set text(tracking: 1pt)
-          #meta.subtitulo
+          #meta.subtitle
         ],
         [
-          #stack(dir: ltr, spacing: 2cm, meta.tema, autores)
+          #stack(dir: ltr, spacing: 2cm, meta.topic, authors)
 
           #if meta.at("url", default: none) != none {
             link(meta.url)
           }
         ]
       ),
-      ..if meta.at("resumen", default: none) != none {
+      ..if meta.at("abstract", default: none) != none {
         ([
-          = Resumen
-          #meta.resumen],)
+          = Abstract
+          #meta.abstract],)
       } else {
         ()
       },
@@ -164,29 +164,27 @@
     )
     
     #layout(size => {
-      let desired = measure(page-content(espaciado))
+      let desired = measure(page-content(spacing))
       if desired.height > size.height {
         page-content(1fr)
       } else {
-        page-content(espaciado)
+        page-content(spacing)
       }
     })
   ])
 }
 
-/// Esta función permite obtener ayuda sobre cualquier función
-/// del template. Para saber qué funciones y variables define
-/// el template simplemente deja que el autocompletado te guíe,
-/// luego puedes llamar esta función para obtener más ayuda.
+/// This function allows you to get help on any template function.
+/// To see what functions and variables the template defines,
+/// let autocomplete guide you, then call this function for more help.
 ///
-/// - nombre (string): Puede ser el nombre de una función o
-///                    variable, entonces la función entrega
-///                    ayuda general sobre esta. Si se entrega
-///                    algo de la forma `"help(nombre)"` entonces
-///                    entrega ayuda específica sobre el argumento
-///                    `nombre`.
+/// - name (string): Can be the name of a function or
+///                 variable, in which case the function provides
+///                 general help about it. If something of the form
+///                 `"help(name)"` is provided, it gives specific
+///                 help about the `name` argument.
 /// -> content
-#let help(nombre) = {
+#let help(name) = {
   import "../meta.typ": *
-  return help-leaf("front")(nombre)
+  return help-leaf("front")(name)
 }

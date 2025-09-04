@@ -1,23 +1,23 @@
 #import "../meta.typ": *
-#import "../minerva-report-fcfm.typ" as minerva
+#import "../minerva-report-uiuc.typ" as minerva
 
-#let titulo = "Informe Minerva"
-#let subtitulo = "Informes rápidos y fáciles."
-#let tema = "v" + package-version
-#let url = "https://github.com/Dav1com/minerva-report-fcfm"
+#let title = "Minerva Report"
+#let subtitle = "Quick and easy reports."
+#let topic = "v" + package-version
+#let url = "https://github.com/Dav1com/minerva-report-uiuc"
 
-#let departamento = minerva.departamentos.dcc
-#let curso = ""
+#let department = minerva.departments.grainger
+#let course = ""
 
-#let fechas = ( // diccionario de fechas, si la portada no soporta
-  Creación: minerva.util.formato-fecha(datetime.today())
+#let dates = ( // dates dictionary, if the title page doesn't support
+  Creation: minerva.util.format-date(datetime.today())
 )
-#let lugar = "Santiago, Chile"
+#let location = "Urbana, Illinois"
 
-#let autores = "David Ibáñez"
-#let equipo-docente = none
+#let authors = "David Ibáñez"
+#let teaching-team = none
 
-#let resumen = [
-  *Minerva Report FCFM* es un template de Typst para informes de tareas, laboratorios o trabajos. Pensado para estudiantes y académicos de la Facultad de Ciencias Físicas y Matemáticas de la Universidad de Chile.
+#let abstract = [
+  *Minerva Report UIUC* is a Typst template for assignment reports, labs, or projects. Designed for students and faculty at the University of Illinois at Urbana-Champaign.
 ]
 
