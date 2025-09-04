@@ -42,5 +42,19 @@ The `department` configuration can be customized for any organization by passing
 
 Other configurations can be arbitrary `content` or `string` values.
 
+### Advanced Template Options
+For more advanced customization, you can modify the template function call in your main document:
+
+```typ
+#show: minerva.report.with(
+  meta,
+  showrules: true,
+  heading-numbering: none,  // Disable automatic heading numbering
+)
+```
+
+Available options:
+- `heading-numbering`: Controls heading numbering format. Use `"1."` for standard numbering, or `none` to disable numbering entirely.
+
 ## Comprehensive Guide
 For more detailed information, please refer to the comprehensive guide available in the repository. 

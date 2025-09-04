@@ -1,6 +1,6 @@
 [package]
 name = "minerva-report-uiuc"
-version = "0.3.0"
+version = "0.1.0"
 entrypoint = "minerva-report-uiuc.typ"
 authors = ["Raúl de la Fuente <@lomolisso>", "David Ibáñez <@Dav1com>"]
 repository = "https://github.com/lomolisso/minerva-report-uiuc"
@@ -14,4 +14,3 @@ exclude = ["guide.pdf"]
 [template]
 path = "template"
 entrypoint = "main.typ"
-thumbnail = "thumbnail.png"

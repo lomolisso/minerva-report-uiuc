@@ -88,6 +88,8 @@
 /// - margins (dictionary): Document margins.
 /// - showrules (bool): If `true`, irreversible show rules will be applied.
 ///   If more customization is needed, I recommend disabling this.
+/// - heading-numbering (string, none): Numbering scheme for headings.
+///   Use `none` to disable heading numbering. Default is `"1."`.
 /// - doc (content): Document to apply the template to.
 /// -> content
 #let report(
@@ -98,6 +100,7 @@
   title-page-margins: (top: 3.5cm),
   margins: (top: 3.5cm),
   showrules: true,
+  heading-numbering: "1.",
   doc
 ) = {
   let title-page-set-extra = (:)
@@ -109,7 +112,7 @@
   set page(header: header(meta), footer: footer(meta), margin: margins)
   set text(lang: "en", region: "us", hyphenate: true)
 
-  set heading(numbering: "1.")
+  set heading(numbering: heading-numbering)
   set par(leading: 0.5em, justify: true, linebreaks: "optimized")
 
   set math.equation(numbering: "(1)")
