@@ -34,7 +34,7 @@
   } else if meta.authors.len() > 0 {
     members.insert(
       if meta.authors.len() == 1 {
-        "Member"
+        "Author"
       } else {
         "Members"
       },
