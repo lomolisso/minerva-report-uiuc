@@ -44,12 +44,12 @@
   // Handle author fields directly (no "Author:" label)
   if meta.at("author", default: none) != none {
     let author = meta.author
-    members.insert([*Name:*], author.name)
+    members.insert("Name:", author.name)
     if author.at("netid", default: none) != none {
-      members.insert([*NetID:*], author.netid)
+      members.insert("NetID:", author.netid)
     }
     if author.at("uin", default: none) != none {
-      members.insert([*UIN:*], author.uin)
+      members.insert("UIN:", author.uin)
     }
   }
   
@@ -58,21 +58,21 @@
     if type(partners) == "array" {
       for (i, partner) in partners.enumerate() {
         let prefix = if partners.len() > 1 { "Partner " + str(i + 1) + " " } else { "Partner " }
-        members.insert([*#prefix#[Name:]*], partner.name)
+        members.insert(prefix + "Name:", partner.name)
         if partner.at("netid", default: none) != none {
-          members.insert([*#prefix#[NetID:]*], partner.netid)
+          members.insert(prefix + "NetID:", partner.netid)
         }
         if partner.at("uin", default: none) != none {
-          members.insert([*#prefix#[UIN:]*], partner.uin)
+          members.insert(prefix + "UIN:", partner.uin)
         }
       }
     } else {
-      members.insert([*Partner Name:*], partners.name)
+      members.insert("Partner Name:", partners.name)
       if partners.at("netid", default: none) != none {
-        members.insert([*Partner NetID:*], partners.netid)
+        members.insert("Partner NetID:", partners.netid)
       }
       if partners.at("uin", default: none) != none {
-        members.insert([*Partner UIN:*], partners.uin)
+        members.insert("Partner UIN:", partners.uin)
       }
     }
   }
@@ -104,7 +104,7 @@
 
   let member-table-args = ()
   for (category, names) in members {
-    member-table-args.push[#category:]
+    member-table-args.push[*#category*]
     member-table-args.push[
       #if type(names) == array {
         for name in names [#name \ ]
