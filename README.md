@@ -28,8 +28,43 @@ For local development, you can work directly with the template files. The templa
 Most configuration is done through the `meta.typ` file,
 where you can set the title, authors, course information, and other document details.
 
-The `authors` field accepts either a `string` or an `array` of strings.
+### Authors Configuration
+The `authors` field now supports structured data to include additional information:
 
+```typ
+// Simple string format (still supported)
+#let authors = "Student Name"
+
+// Single author with structured data
+#let authors = (name: "Student Name", netid: "netid1", uin: "123456789")
+
+// Multiple authors
+#let authors = (
+  (name: "Student1", netid: "student1", uin: "111111111"),
+  (name: "Student2", netid: "student2")  // netid and uin are optional
+)
+```
+
+**Note:** Only the `name` field is mandatory. `netid` and `uin` are optional.
+
+### Partners Configuration
+The template now supports an optional `partners` field that is `none` by default:
+
+```typ
+// No partners (default)
+#let partners = none
+
+// With partners (when specified, authors must be exactly one)
+#let authors = (name: "Main Student", netid: "main", uin: "111111111")
+#let partners = (
+  (name: "Partner1", netid: "partner1"),
+  (name: "Partner2", netid: "partner2", uin: "222222222")
+)
+```
+
+**Important:** When `partners` is specified (not `none`), the `authors` field must contain exactly one author.
+
+### Department Configuration
 The `department` configuration can be customized for any organization by passing a dictionary like this:
 ```typ
 #let department = (

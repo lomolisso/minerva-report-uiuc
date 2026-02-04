@@ -14,7 +14,7 @@
 )
 #let location = "Urbana, Illinois"
 
-#let authors = "David Ibáñez"
+#let authors = (name: "David Ibáñez", netid: "dibanez")
 #let teaching-team = none
 
 #let abstract = [

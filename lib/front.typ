@@ -28,20 +28,83 @@
   meta,
   title-centered: false,
 ) = {
+  // Get partners with null as default
+  let partners = meta.at("partners", default: none)
+  
+  // Validate: if partners is not null, authors must be exactly one
+  if partners != none {
+    let author-count = if type(meta.authors) == "array" {
+      meta.authors.len()
+    } else if type(meta.authors) == "dictionary" {
+      1
+    } else {
+      1  // string
+    }
+    assert(author-count == 1, message: "When partners is specified, authors must be exactly one")
+  }
+  
+  // Helper function to format an author
+  let format-author(author) = {
+    if type(author) == "dictionary" {
+      let name = author.name
+      let netid = author.at("netid", default: none)
+      let uin = author.at("uin", default: none)
+      
+      let parts = (name,)
+      if netid != none {
+        parts.push("NetID: " + netid)
+      }
+      if uin != none {
+        parts.push("UIN: " + uin)
+      }
+      parts.join(" | ")
+    } else {
+      author  // string or content
+    }
+  }
+  
   let members = (:)
-  if type(meta.authors) == "string" {
-    members.insert("Author", meta.authors)
-  } else if meta.authors.len() > 0 {
+  
+  // Handle authors
+  if type(meta.authors) == "string" or type(meta.authors) == "content" {
+    members.insert("Author", format-author(meta.authors))
+  } else if type(meta.authors) == "dictionary" {
+    members.insert("Author", format-author(meta.authors))
+  } else if type(meta.authors) == "array" and meta.authors.len() > 0 {
+    let formatted-authors = meta.authors.map(format-author)
     members.insert(
       if meta.authors.len() == 1 {
         "Author"
       } else {
         "Members"
       },
-      meta.authors
+      formatted-authors
     )
   }
-  members = members + meta.teaching-team
+  
+  // Handle partners if provided
+  if partners != none {
+    if type(partners) == "string" or type(partners) == "content" {
+      members.insert("Partner", format-author(partners))
+    } else if type(partners) == "dictionary" {
+      members.insert("Partner", format-author(partners))
+    } else if type(partners) == "array" and partners.len() > 0 {
+      let formatted-partners = partners.map(format-author)
+      members.insert(
+        if partners.len() == 1 {
+          "Partner"
+        } else {
+          "Partners"
+        },
+        formatted-partners
+      )
+    }
+  }
+  
+  // Add teaching team if present
+  if meta.at("teaching-team", default: none) != none {
+    members = members + meta.teaching-team
+  }
 
   let header = header.base[
     #grid(columns: (auto, 1fr), rows: auto)[
@@ -127,8 +190,20 @@
   include-outline: false
 ) = {
   let meta = dictionary(meta)
+  
+  // Helper function to format an author for simple display
+  let format-author-simple(author) = {
+    if type(author) == "dictionary" {
+      author.name
+    } else {
+      author  // string or content
+    }
+  }
+  
   let authors = if type(meta.authors) == array {
-    meta.authors.join(", ")
+    meta.authors.map(format-author-simple).join(", ")
+  } else if type(meta.authors) == "dictionary" {
+    format-author-simple(meta.authors)
   } else {
     meta.authors
   }

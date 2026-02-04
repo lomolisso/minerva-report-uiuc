@@ -11,8 +11,8 @@
 }
 
 #let package-name = "minerva-report-uiuc"
-#let package-version = "0.3.0"
-#let package-version-arr = (0,3,0)
+#let package-version = "0.1.2"
+#let package-version-arr = (0,1,2)
 
 #let global-namespace = (
   "minerva": read.with("minerva-report-uiuc.typ"),
