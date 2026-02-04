@@ -11,7 +11,6 @@
   completion: "April 14, 2024",
   submission: minerva.util.format-date(datetime.today())
 )
-#let location = "Urbana, Illinois"
 
 // Author is a single dictionary with name (required), netid (optional), uin (optional)
 #let author = (name: "Student Name", netid: "student1", uin: "123456789")

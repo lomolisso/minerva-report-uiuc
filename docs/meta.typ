@@ -12,7 +12,6 @@
 #let dates = ( // dates dictionary, if the title page doesn't support
   Creation: minerva.util.format-date(datetime.today())
 )
-#let location = "Urbana, Illinois"
 
 #let author = (name: "David Ibáñez", netid: "dibanez")
 #let teaching-team = none
