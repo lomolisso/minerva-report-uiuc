@@ -108,9 +108,12 @@
     title-page-set-extra.insert("margin", title-page-margins)
   }
 
+  // Convert meta to dictionary for safe access
+  let meta-dict = dictionary(meta)
+  
   // Extract author name for document metadata
-  let doc-author = if meta.at("author", default: none) != none {
-    meta.author.name
+  let doc-author = if meta-dict.at("author", default: none) != none {
+    meta-dict.author.name
   } else {
     none
   }
