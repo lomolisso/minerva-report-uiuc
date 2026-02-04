@@ -53,14 +53,9 @@
       let netid = author.at("netid", default: none)
       let uin = author.at("uin", default: none)
       
-      let parts = (name,)
-      if netid != none {
-        parts.push("NetID: " + netid)
-      }
-      if uin != none {
-        parts.push("UIN: " + uin)
-      }
-      parts.join(" | ")
+      [Name: #name \
+      #if netid != none [NetID: #netid \]
+      #if uin != none [UIN: #uin \]]
     } else {
       author  // string or content
     }
