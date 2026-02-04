@@ -34,73 +34,46 @@
   // Get partners with null as default
   let partners = meta.at("partners", default: none)
   
-  // Validate: if partners is not null, authors must be exactly one
+  // Validate: if partners is not null, author must be present
   if partners != none {
-    let author-count = if type(meta.authors) == "array" {
-      meta.authors.len()
-    } else if type(meta.authors) == "dictionary" {
-      1
-    } else {
-      1  // string
-    }
-    assert(author-count == 1, message: "When partners is specified, authors must be exactly one")
-  }
-  
-  // Helper function to format an author
-  let format-author(author) = {
-    if type(author) == "dictionary" {
-      let name = author.name
-      let netid = author.at("netid", default: none)
-      let uin = author.at("uin", default: none)
-      
-      let result = [Name: #name]
-      if netid != none {
-        result = [#result \ NetID: #netid]
-      }
-      if uin != none {
-        result = [#result \ UIN: #uin]
-      }
-      result
-    } else {
-      author  // string or content
-    }
+    assert(meta.at("author", default: none) != none, message: "When partners is specified, author must be provided")
   }
   
   let members = (:)
   
-  // Handle authors
-  if type(meta.authors) == "string" or type(meta.authors) == "content" {
-    members.insert("Author", format-author(meta.authors))
-  } else if type(meta.authors) == "dictionary" {
-    members.insert("Author", format-author(meta.authors))
-  } else if type(meta.authors) == "array" and meta.authors.len() > 0 {
-    let formatted-authors = meta.authors.map(format-author)
-    members.insert(
-      if meta.authors.len() == 1 {
-        "Author"
-      } else {
-        "Members"
-      },
-      formatted-authors
-    )
+  // Handle author fields directly (no "Author:" label)
+  if meta.at("author", default: none) != none {
+    let author = meta.author
+    members.insert("Name", author.name)
+    if author.at("netid", default: none) != none {
+      members.insert("NetID", author.netid)
+    }
+    if author.at("uin", default: none) != none {
+      members.insert("UIN", author.uin)
+    }
   }
   
   // Handle partners if provided
   if partners != none {
-    if type(partners) == "string" or type(partners) == "content" {
-      members.insert("Partner", format-author(partners))
-    } else if type(partners) == "dictionary" {
-      members.insert("Partner", format-author(partners))
-    } else if type(partners) == "array" and partners.len() > 0 {
-      let formatted-partners = partners.map(format-author)
-      members.insert(
-        if partners.len() == 1 {
-          "Partner"
-        } else {
-          "Partners"
-        },
-        formatted-partners
-      )
+    if type(partners) == "array" {
+      for (i, partner) in partners.enumerate() {
+        let prefix = if partners.len() > 1 { "Partner " + str(i + 1) + " " } else { "Partner " }
+        members.insert(prefix + "Name", partner.name)
+        if partner.at("netid", default: none) != none {
+          members.insert(prefix + "NetID", partner.netid)
+        }
+        if partner.at("uin", default: none) != none {
+          members.insert(prefix + "UIN", partner.uin)
+        }
+      }
+    } else {
+      members.insert("Partner Name", partners.name)
+      if partners.at("netid", default: none) != none {
+        members.insert("Partner NetID", partners.netid)
+      }
+      if partners.at("uin", default: none) != none {
+        members.insert("Partner UIN", partners.uin)
+      }
     }
   }
   
@@ -194,21 +167,10 @@
 ) = {
   let meta = dictionary(meta)
   
-  // Helper function to format an author for simple display
-  let format-author-simple(author) = {
-    if type(author) == "dictionary" {
-      author.name
-    } else {
-      author  // string or content
-    }
-  }
-  
-  let authors = if type(meta.authors) == array {
-    meta.authors.map(format-author-simple).join(", ")
-  } else if type(meta.authors) == "dictionary" {
-    format-author-simple(meta.authors)
+  let author-name = if meta.at("author", default: none) != none {
+    meta.author.name
   } else {
-    meta.authors
+    ""
   }
 
   return base(margin: (x: 4cm), align(center + horizon)[
@@ -224,7 +186,7 @@
           #meta.subtitle
         ],
         [
-          #stack(dir: ltr, spacing: 2cm, meta.topic, authors)
+          #stack(dir: ltr, spacing: 2cm, meta.topic, author-name)
 
           #if meta.at("url", default: none) != none {
             link(meta.url)

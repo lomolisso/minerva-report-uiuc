@@ -26,43 +26,51 @@ For local development, you can work directly with the template files. The templa
 
 ## Configuration
 Most configuration is done through the `meta.typ` file,
-where you can set the title, authors, course information, and other document details.
+where you can set the title, author, course information, and other document details.
 
-### Authors Configuration
-The `authors` field now supports structured data to include additional information:
+### Author Configuration
+The `author` field is a single dictionary with structured data:
 
 ```typ
-// Simple string format (still supported)
-#let authors = "Student Name"
+// Author with all fields
+#let author = (name: "Student Name", netid: "student1", uin: "123456789")
 
-// Single author with structured data
-#let authors = (name: "Student Name", netid: "netid1", uin: "123456789")
+// Author with only required field (netid and uin are optional)
+#let author = (name: "Student Name")
 
-// Multiple authors
-#let authors = (
-  (name: "Student1", netid: "student1", uin: "111111111"),
-  (name: "Student2", netid: "student2")  // netid and uin are optional
-)
+// With optional netid
+#let author = (name: "Student Name", netid: "student1")
 ```
 
-**Note:** Only the `name` field is mandatory. `netid` and `uin` are optional.
+**Note:** Only the `name` field is mandatory. `netid` and `uin` default to `none` and won't be displayed if not provided.
+
+The author information is displayed as separate fields on the title page:
+```
+Name: Student Name
+NetID: student1
+UIN: 123456789
+```
 
 ### Partners Configuration
-The template now supports an optional `partners` field that is `none` by default:
+The template supports an optional `partners` field that is `none` by default:
 
 ```typ
 // No partners (default)
 #let partners = none
 
-// With partners (when specified, authors must be exactly one)
-#let authors = (name: "Main Student", netid: "main", uin: "111111111")
+// With a single partner
+#let author = (name: "Main Student", netid: "main", uin: "111111111")
+#let partners = (name: "Partner Name", netid: "partner1")
+
+// With multiple partners
+#let author = (name: "Main Student", netid: "main")
 #let partners = (
   (name: "Partner1", netid: "partner1"),
   (name: "Partner2", netid: "partner2", uin: "222222222")
 )
 ```
 
-**Important:** When `partners` is specified (not `none`), the `authors` field must contain exactly one author.
+**Important:** When `partners` is specified (not `none`), the `author` field must be provided.
 
 ### Department Configuration
 The `department` configuration can be customized for any organization by passing a dictionary like this:

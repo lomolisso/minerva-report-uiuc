@@ -108,18 +108,14 @@
     title-page-set-extra.insert("margin", title-page-margins)
   }
 
-  // Extract author names for document metadata
-  let doc-authors = if type(meta.authors) == "string" {
-    meta.authors
-  } else if type(meta.authors) == "dictionary" {
-    meta.authors.name
-  } else if type(meta.authors) == "array" {
-    meta.authors.map(a => if type(a) == "dictionary" { a.name } else { a })
+  // Extract author name for document metadata
+  let doc-author = if meta.at("author", default: none) != none {
+    meta.author.name
   } else {
-    meta.authors
+    none
   }
 
-  set document(title: meta.title, author: doc-authors, date: datetime.today())
+  set document(title: meta.title, author: doc-author, date: datetime.today())
   set page(header: header(meta), footer: footer(meta), margin: margins)
   set text(lang: "en", region: "us", hyphenate: true)
 
