@@ -28,6 +28,9 @@
   meta,
   title-centered: false,
 ) = {
+  // Convert meta to dictionary if it's a module
+  let meta = dictionary(meta)
+  
   // Get partners with null as default
   let partners = meta.at("partners", default: none)
   
