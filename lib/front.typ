@@ -117,11 +117,11 @@
   let title = align(center, {
       if meta.title != none {
         text(size: 25pt, meta.title)
-        linebreak()
+        v(0.3em)
       }
       if meta.subtitle != none {
         text(size: 18pt, meta.subtitle)
-        linebreak()
+        v(0.2em)
       }
       if meta.topic != none {
         text(size: 14pt, meta.topic)
