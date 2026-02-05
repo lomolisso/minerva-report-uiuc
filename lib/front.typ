@@ -104,7 +104,9 @@
 
   let member-table-args = ()
   for (category, names) in members {
-    member-table-args.push[*#category*]
+    // Add colon to all categories for consistency
+    let label = if category.ends-with(":") { category } else { category + ":" }
+    member-table-args.push[*#label*]
     member-table-args.push[
       #if type(names) == array {
         for name in names [#name \ ]
