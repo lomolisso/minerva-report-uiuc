@@ -120,10 +120,12 @@
       if meta.title != none {
         text(size: 25pt, meta.title)
         linebreak()
+        v(6pt)
       }
       if meta.subtitle != none {
         text(size: 18pt, meta.subtitle)
         linebreak()
+        v(6pt)
       }
       if meta.topic != none {
         text(size: 14pt, meta.topic)
